@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 // Load env values
 dotenv.config();
-
 mongoose
     .connect(process.env.DATABASE_CONNECTION, {
       useNewUrlParser: true,
