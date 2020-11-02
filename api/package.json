@@ -1,0 +1,34 @@
+{
+  "name": "colet",
+  "version": "1.0.0",
+  "description": "Metting planer utility.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Azorimor/colet.git"
+  },
+  "keywords": [
+    "metting",
+    "planer"
+  ],
+  "author": "Azorimor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Azorimor/colet/issues"
+  },
+  "homepage": "https://github.com/Azorimor/colet#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.11"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "eslint": "^7.12.1",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^2.0.6"
+  }
+}
