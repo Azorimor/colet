@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/users', UserRouter);
-router.use('/projects', ProjectRouter);
+router.use('/user', UserRouter);
+router.use('/project', ProjectRouter);
 
 module.exports = router;
