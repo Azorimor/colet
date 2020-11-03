@@ -2,9 +2,8 @@ const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
 
-// Controller
-const UserController = require('./controllers/user.controller');
-const ProjectController = require('./controllers/project.controller');
+// Router
+const router = require('./routes/main.router');
 
 // Load env values
 dotenv.config();
@@ -23,8 +22,7 @@ mongoose
       app.use(express.json());
 
       // Routes
-      app.post('/user', UserController.create);
-      app.post('/project', ProjectController.create);
+      app.use('/', router);
 
       // Starting express server
       app.listen(process.env.PORT, () => {
