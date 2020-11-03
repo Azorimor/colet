@@ -1,34 +1,37 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const {isEmail} = require('validator');
 
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
-const userSchema = new Schema({
-  username: {
+const projectSchema = new Schema({
+  name: {
     type: String,
     required: true,
   },
-  email: {
+  description: {
     type: String,
-    unique: true,
+  },
+  public: {
+    type: Boolean,
     required: true,
-    validate: [isEmail, 'invalid email'],
   },
   password: {
     type: String,
-    required: true,
-    select: false,
   },
-  projects: {
+  owner: {
     type: Schema.Types.ObjectId,
-    ref: 'Project',
+    ref: 'User',
+    required: true,
   },
-  meetings: {
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }],
+  meetings: [{
     type: Schema.Types.ObjectId,
     ref: 'Meeting',
-  },
+  }],
 }, {
   timestamps: true,
 });
@@ -36,7 +39,7 @@ const userSchema = new Schema({
 /**
  * Store the password savely with bcrypt.
  */
-userSchema.pre('save', async function save(next) {
+projectSchema.pre('save', async function save(next) {
   if (!this.isModified('password')) return next();
   try {
     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
@@ -48,12 +51,12 @@ userSchema.pre('save', async function save(next) {
 });
 
 /**
- * Validate, if a given string is the password of the user.
+ * Validate, if a given string is the password of the project.
  * @param {*} candidatePassword The password, which should be checked.
  */
-userSchema.methods.validatePassword =
+projectSchema.methods.validatePassword =
   async function validatePassword(candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
   };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Project', projectSchema);

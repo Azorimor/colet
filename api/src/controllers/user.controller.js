@@ -5,10 +5,10 @@ exports.create = (req, res) => {
   const user = new UserModel({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password, // FIXME dont store password
+    password: req.body.password,
   });
   user.save()
-      .then((result) => {
+      .then((result) => { // TODO not return password
         res.json({success: true, result: result});
       })
       .catch((error) => {

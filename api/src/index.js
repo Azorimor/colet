@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 // Controller
 const UserController = require('./controllers/user.controller');
+const ProjectController = require('./controllers/project.controller');
 
 // Load env values
 dotenv.config();
@@ -23,6 +24,7 @@ mongoose
 
       // Routes
       app.post('/user', UserController.create);
+      app.post('/project', ProjectController.create);
 
       // Starting express server
       app.listen(process.env.PORT, () => {
