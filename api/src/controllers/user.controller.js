@@ -42,7 +42,11 @@ exports.getById = async (req, res) => {
  * @param {*} res 
  */
 exports.update = async (req, res) => {
-  UserModel.updateOne({_id: req.params.id},req.body)
+  UserModel.updateOne({_id: req.params.id},{
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+  })
   .then(()=> {
     UserModel.findById(req.params.id)
       .then((user) => {

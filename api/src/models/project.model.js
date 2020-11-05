@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const {isEmail} = require('validator');
 
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
@@ -27,6 +28,16 @@ const projectSchema = new Schema({
   users: [{
     type: Schema.Types.ObjectId,
     ref: 'User',
+  }],
+  anonyms: [{
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      validate: [isEmail, 'invalid email'],
+    }
   }],
   meetings: [{
     type: Schema.Types.ObjectId,

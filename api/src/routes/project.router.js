@@ -13,10 +13,7 @@ router.get('/:id', ProjectController.getById);
 router.patch('/:id', ProjectController.update);
 
 // Delete project by id
-router.delete('/:id', (req, res) => {
-  // TODO delete project by id
-  res.json({status: "DEBUG"});
-});
+router.delete('/:id', ProjectController.delete);
 
 // Create Meeting Planning for project //TODO maybe meetings stuff other router
 router.post('/:id/meeting', (req, res) => {
@@ -25,10 +22,10 @@ router.post('/:id/meeting', (req, res) => {
 });
 
 // Get all users for this project
-router.get('/:id/user');
+router.get('/:id/user', ProjectController.getAllUsers);
 
 // Add user to this project
-router.post('/:id/user');
+router.post('/:id/user', ProjectController.addUser);
 
 // Remove user from the project
 router.delete('/:id/user/:userId');
