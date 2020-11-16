@@ -12,11 +12,11 @@ exports.create = async (req, res) => {
     password: req.body.password,
   });
   user.save()
-      .then((result) => { // TODO not return password
-        res.json({success: true, result: result});
+      .then((user) => { // TODO not return password
+        res.json({success: true, data: user});
       })
       .catch((error) => {
-        res.json({success: false, result: error});
+        res.json({success: false, error: serializeError(error), message: 'Could not create user.'});
       });
 };
 
@@ -28,11 +28,11 @@ exports.create = async (req, res) => {
 exports.getById = async (req, res) => {
   UserModel.findById(req.params.id)
     .then((user) => {
-      res.json(user);
+      res.json({success: true, data: user});
     })
     .catch((error) => {
       res.status(404);
-      res.json({error:"User does not exist."});
+      res.json({success: false, error: serializeError(error), message: 'Could not find user.'});
     })
 };
 
@@ -50,12 +50,12 @@ exports.update = async (req, res) => {
   .then(()=> {
     UserModel.findById(req.params.id)
       .then((user) => {
-        res.json(user);
+        res.json({success: true, data: user});
       });
   })
   .catch((error) => {
     res.status(404);
-    res.json({error: "User does not exist."})
+    res.json({success: false, error: serializeError(error), message: 'Could not update user.'})
   });
 };
 
@@ -66,11 +66,11 @@ exports.update = async (req, res) => {
  */
 exports.delete = async (req, res) => {
   UserModel.deleteOne({_id: req.params.id})
-  .then((result) => {
-    res.status(204).send();
+  .then(() => {
+    res.status(204).json({success: true, data: {}});
   })
   .catch((error) => {
     res.status(404);
-    res.send({error: "Could not delete the user."});
+    res.send({success: false, error: serializeError(error), message: 'Could not delete the user.'});
   });
 };
