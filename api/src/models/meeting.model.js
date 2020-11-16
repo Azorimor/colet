@@ -2,10 +2,17 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const {isEmail} = require('validator');
 
+const {customAlphabet} = require('nanoid');
+const nanoid = customAlphabet('2346789ABCDEFGHJKLMNPQRTUVWXYZabcdefghijkmnpqrtwxyz',12);
+
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
 const meetingSchema = new Schema({
+  _id: {
+    type: String,
+    default: () => nanoid()
+  },
   name: {
     type: String,
     required: true,
