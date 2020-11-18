@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const {isEmail} = require('validator');
 
 const {customAlphabet} = require('nanoid');
-const nanoid = customAlphabet('2346789ABCDEFGHJKLMNPQRTUVWXYZabcdefghijkmnpqrtwxyz',12);
+const nanoid = customAlphabet('2346789ABCDEFGHJKLMNPQRTUVWXYZabcdefghijkmnpqrtwxyz', 12);
 
 const Schema = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
@@ -11,7 +11,7 @@ const SALT_WORK_FACTOR = 10;
 const userSchema = new Schema({
   _id: {
     type: String,
-    default: () => nanoid()
+    default: () => nanoid(),
   },
   username: {
     type: String,

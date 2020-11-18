@@ -12,13 +12,13 @@ describe('POST /user', () => {
     const data = {
       username: 'Testnutzer',
       email: 'email@mail.com',
-      password: 'securePassword'
-    }
+      password: 'securePassword',
+    };
     const response = await request
-      .post('/user')
-      .send(data)
-      .expect(200);
-    
+        .post('/user')
+        .send(data)
+        .expect(200);
+
     expect(response.body.data._id).toBeTruthy();
     expect(response.body.data.username).toBeTruthy();
     expect(response.body.data.email).toBeTruthy();

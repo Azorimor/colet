@@ -9,13 +9,13 @@ router.post('/', UserController.create);
 // Log user in
 router.get('/login', (req, res) => {
   // TODO log user in
-  res.json({status: "DEBUG"});
+  res.json({status: 'DEBUG'});
 });
 
 // Log user out
 router.get('/logout', (req, res) => {
   // TODO log user out
-  res.json({status: "DEBUG"});
+  res.json({status: 'DEBUG'});
 });
 
 // Get user by user id

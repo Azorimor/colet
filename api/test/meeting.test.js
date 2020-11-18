@@ -22,12 +22,12 @@ describe('POST /meeting', () => {
       password: 'securePassword',
       public: 'true',
       creator: creator,
-    }
+    };
     const response = await request
-      .post('/meeting')
-      .send(data)
-      .expect(200);
-    
+        .post('/meeting')
+        .send(data)
+        .expect(200);
+
     expect(response.body.data._id).toBeTruthy();
     expect(response.body.data.name).toBeTruthy();
     expect(response.body.data.description).toBeTruthy();
