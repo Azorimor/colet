@@ -1,3 +1,4 @@
+const {serializeError} = require('serialize-error');
 const UserModel = require('../models/user.model');
 
 /**

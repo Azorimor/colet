@@ -9,19 +9,6 @@ mongoose.connection.on('error', (error) => {
   console.warn('Error: ',error);
 });
 
-beforeAll(async () => {
-  mongoose
-  .connect(process.env.DATABASE_CONNECTION, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log('Database connected.');
-  })
-  .catch( (error) => {
-    console.log(error);
-  });
-});
 async function removeAllCollections () {
   const collections = Object.keys(mongoose.connection.collections)
   for (const collectionName of collections) {
@@ -52,18 +39,21 @@ module.exports = {
     // Connect to Mongoose
     beforeAll(async () => {
       const url = process.env.DB_TEST_CONNECTION.replace('%DB_NAME%',databaseName);
-      await mongoose.connect(url, { useNewUrlParser: true })
-    })
+      await mongoose.connect(url, { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+    });
 
     // Cleans up database between each test
     afterEach(async () => {
       await removeAllCollections()
-    })
+    });
 
     // Disconnect Mongoose
     afterAll(async () => {
       await dropAllCollections()
       await mongoose.connection.close()
-    })
+    });
   }
-}
+};

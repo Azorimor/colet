@@ -4,7 +4,7 @@
   "description": "Metting planer utility.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest -i",
     "dev": "nodemon ./src/index.js"
   },
   "repository": {
@@ -35,11 +35,13 @@
     "dotenv": "^8.2.0",
     "eslint": "^7.12.1",
     "eslint-config-google": "^0.14.0",
-    "jest": "^26.6.2",
-    "nodemon": "^2.0.6"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
   },
   "jest": {
     "verbose": true,
-    "rootDir": "./test"
+    "rootDir": "./test",
+    "testEnvironment": "node"
   }
 }

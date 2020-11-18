@@ -1,31 +1,32 @@
-const assert = require('assert');
+const {setupDB} =require('./test-setup');
+setupDB('user-testing');
 
-const {setupDB} = require('./setup.test');
 const UserModel = require('../src/models/user.model');
-const { request } = require('http');
 
-setupDB('userTests');
+const app = require('../src/server');
+const supertest = require('supertest');
+const request = supertest(app);
 
-describe('Creating user', () => {
-  it('Should save user to the database', async (done) => {
-    const res = await request.post('/signup').send({
-      username: 'Testuser',
-      email: 'test@mail.com',
-      password: 'SuperSecurePassword',
-    });
+describe('POST /user', () => {
+  test('Create user', async (done) => {
+    const data = {
+      username: 'Testnutzer',
+      email: 'email@mail.com',
+      password: 'securePassword'
+    }
+    const response = await request
+      .post('/user')
+      .send(data)
+      .expect(200);
+    
+    expect(response.body.data._id).toBeTruthy();
+    expect(response.body.data.username).toBeTruthy();
+    expect(response.body.data.email).toBeTruthy();
 
-    // Search for user in database
-    const user = await UserModel.findOne({username: 'Testuser'})
-
-    // Check, if response contains fields
-    expect(res.body.name).toBeTruthy();
-    expect(res.body.email).toBeTruthy();
-    expect(res.body.password).toBeTruthy();
+    const user = await UserModel.findOne({_id: response.body.data._id});
+    expect(user).toBeTruthy();
+    expect(user.name).toBe(data.name);
+    expect(user.email).toBe(data.email);
+    done();
   });
-  expect(user.name).toBeTruthy();
-  expect(user.email).toBeTruthy();
-  expect(user.password).toBeTruthy();
-  expect(user._id).toBeTruthy();
-
-  done();
 });
