@@ -29,7 +29,12 @@ exports.create = async (req, res) => {
 exports.getById = async (req, res) => {
   UserModel.findById(req.params.id)
       .then((user) => {
-        res.json({success: true, data: user});
+        if (user != null) {
+          res.json({success: true, data: user});
+        } else {
+          res.status(404);
+          res.json({success: false, error: 'User not stored.', message: 'Could not find user.'});
+        }
       })
       .catch((error) => {
         res.status(404);
